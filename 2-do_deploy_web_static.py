@@ -30,7 +30,7 @@ def do_deploy(archive_path):
     """ function distrubtes an archive to my web servers
     """
     path_existence = os.path.exists(archive_path)
-    if path_existence == False:
+    if path_existence is False:
         return False
     try:
         path_split = archive_path.replace('/', ' ').replace('.', ' ').split()
