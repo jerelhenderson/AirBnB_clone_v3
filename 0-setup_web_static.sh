@@ -10,4 +10,4 @@ echo "Holberton school is cool" | sudo tee /data/web_static/releases/test/index.
 sudo ln -sf /data/web_static/releases/test /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data
 sed -i "41i\ $my_string" /etc/nginx/sites-available/default
-sudo service nignx restart
+sudo service nginx restart
