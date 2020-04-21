@@ -8,6 +8,7 @@
 	<UL>
 	  {% for state in city_list|sort(attribute='name') %}
 	  <LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
+	  {% if state.cities %}
 	  <UL>
 	    {% for city in state.cities|sort(attribute='name') %}
 	    <LI>
@@ -15,6 +16,7 @@
 	    </LI>
 	    {% endfor %}
 	  </UL>
+	  {% endif %}
 	  {% endfor %}
 	</UL>
     </BODY>
