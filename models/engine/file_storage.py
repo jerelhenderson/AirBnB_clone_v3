@@ -27,6 +27,26 @@ class FileStorage:
                     my_dict[k] = v
             return my_dict
 
+    def get(self, cls, id):
+        """Returns obj based on class name and ID; return None if not found"""
+        cls_dict = self.all(cls)
+        key = cls + '.' + id
+        return cls_dict[key] if key in cls_dict else None
+
+    def count(self, cls=None):
+        """Returns num of objs in storage matching the given class name;
+        return count of all objs if no name is passed
+        """
+        if not cls:
+            return len(self.all())
+
+        count = 0
+        cls_dict = self.all(cls))
+        for obj in cls_dict.values():
+            if obj.__class__.__name__ == cls:
+                count = count + 1
+        return count
+
     def new(self, obj):
         '''
             Set in __objects the obj with key <obj class name>.id
