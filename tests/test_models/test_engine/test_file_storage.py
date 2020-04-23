@@ -22,6 +22,16 @@ class testFileStorage(unittest.TestCase):
         Testing the FileStorage class
     '''
 
+	def test_get(self):
+		"""Tests get method works properly"""
+		cali = State(name="California")
+		cali.save()
+		hopefully_cali = models.storage.get('cali', cali.id)
+		self.assertEqual(cali, hopefully_cali)
+
+		non_exist = models.storage.get('sdf', 333)
+		self.assertIsNone(non_exist)
+
     def setUp(self):
         '''
             Initializing classes

@@ -15,6 +15,16 @@ class testDBStorage(unittest.TestCase):
     '''
     Testing the DB storage class
     '''
+	def test_get(self):
+		"""Tests get method works properly"""
+		cali = State(name="California")
+		cali.save()
+		hopefully_cali = models.storage.get('cali', cali.id)
+		self.assertEqual(cali, hopefully_cali)
+
+		non_exist = models.storage.get('sdf', 333)
+		self.assertIsNone(non_exist)
+
     def test_existence_user(self):
         '''
         Testing if User class is being created properly

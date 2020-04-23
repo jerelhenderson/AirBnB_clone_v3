@@ -41,7 +41,7 @@ class FileStorage:
             return len(self.all())
 
         count = 0
-        cls_dict = self.all(cls))
+        cls_dict = self.all(cls)
         for obj in cls_dict.values():
             if obj.__class__.__name__ == cls:
                 count = count + 1
