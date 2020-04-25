@@ -9,6 +9,7 @@ from models import storage
 
 obj_dict = storage.all('City')
 
+
 @app_views.route('/states/<state_id>/cities', methods=['GET'])
 def all_city(state_id):
     """retrieves a list of City objects given a city_id"""
@@ -17,6 +18,7 @@ def all_city(state_id):
                         if city.state_id == state_id])
     except:
         abort(404)
+
 
 @app_views.route('/cities/<city_id>', methods=['GET', 'DELETE'])
 def get_city_obj(city_id):
@@ -28,6 +30,7 @@ def get_city_obj(city_id):
             storage.save()
         return jsonify({}), 200 if city_obj else abort(404)
     return jsonify(city_obj.to_dict()) if city_obj else abort(404)
+
 
 @app_views.route('/states/<state_id>/cities', methods=['POST'])
 def create_city(state_id):
@@ -45,6 +48,7 @@ def create_city(state_id):
     storage.new(new_city)
     storage.save()
     return jsonify(new_city.to_dict()), 201
+
 
 @app_views.route('/cities/<city_id>', methods=['PUT'])
 def update_city(city_id):

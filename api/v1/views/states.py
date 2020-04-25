@@ -9,10 +9,12 @@ from models import storage
 
 obj_dict = storage.all('State')
 
+
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def all_state():
     """retrieves a list of all State objects"""
     return jsonify([obj.to_dict() for obj in obj_dict.values()])
+
 
 @app_views.route('/states/<state_id>', methods=['GET', 'DELETE'])
 def get_state_obj(state_id):
@@ -24,6 +26,7 @@ def get_state_obj(state_id):
             storage.save()
         return jsonify({}), 200 if state_obj else abort(404)
     return jsonify(state_obj.to_dict()) if state_obj else abort(404)
+
 
 @app_views.route('/states/<state_id>', methods=['PUT'])
 def update_state(state_id):
@@ -40,6 +43,7 @@ def update_state(state_id):
     state_obj.save()
     return jsonify(state_obj.to_dict()), 200
 
+
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def create_state():
     """creates a state"""
@@ -52,4 +56,3 @@ def create_state():
     storage.new(new_state)
     storage.save()
     return jsonify(new_state.to_dict()), 201
-

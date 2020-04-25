@@ -9,10 +9,12 @@ from models import storage
 
 obj_dict = storage.all('Amenity')
 
+
 @app_views.route('/amenities', methods=['GET'], strict_slashes=False)
 def all_amenity():
     """retrieves a list of all Amenity objects"""
     return jsonify([obj.to_dict() for obj in obj_dict.values()])
+
 
 @app_views.route('/amenities/<amenity_id>', methods=['GET', 'DELETE'])
 def get_amenity_obj(amenity_id):
@@ -24,6 +26,7 @@ def get_amenity_obj(amenity_id):
             storage.save()
         return jsonify({}), 200 if amenity_obj else abort(404)
     return jsonify(amenity_obj.to_dict()) if amenity_obj else abort(404)
+
 
 @app_views.route('/amenities', methods=['POST'], strict_slashes=False)
 def create_amenity():
@@ -37,6 +40,7 @@ def create_amenity():
     storage.new(new_amenity)
     storage.save()
     return jsonify(new_amenity.to_dict()), 201
+
 
 @app_views.route('/amenities/<amenity_id>', methods=['PUT'])
 def update_amenity(amenity_id):

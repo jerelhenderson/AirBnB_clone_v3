@@ -9,10 +9,12 @@ from models import storage
 
 obj_dict = storage.all('User')
 
+
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
 def all_user():
     """retrieves a list of all User objects"""
     return jsonify([obj.to_dict() for obj in obj_dict.values()])
+
 
 @app_views.route('/users/<user_id>', methods=['GET', 'DELETE'])
 def get_user_obj(user_id):
@@ -24,6 +26,7 @@ def get_user_obj(user_id):
             storage.save()
         return jsonify({}), 200 if user_obj else abort(404)
     return jsonify(user_obj.to_dict()) if user_obj else abort(404)
+
 
 @app_views.route('/users/<user_id>', methods=['PUT'])
 def update_user(user_id):
@@ -39,6 +42,7 @@ def update_user(user_id):
             setattr(user_obj, key, val)
     user_obj.save()
     return jsonify(user_obj.to_dict()), 200
+
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def create_user():

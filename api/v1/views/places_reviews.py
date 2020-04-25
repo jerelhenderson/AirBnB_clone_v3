@@ -9,6 +9,7 @@ from models import storage
 
 obj_dict = storage.all('Review')
 
+
 @app_views.route('/places/<place_id>/reviews', methods=['GET'])
 def all_review(place_id):
     """retrieves a list of Review objects given a review_id"""
@@ -17,6 +18,7 @@ def all_review(place_id):
                         if review.place_id == place_id])
     except:
         abort(404)
+
 
 @app_views.route('/reviews/<review_id>', methods=['GET', 'DELETE'])
 def get_review_obj(review_id):
@@ -28,6 +30,7 @@ def get_review_obj(review_id):
             storage.save()
         return jsonify({}), 200 if review_obj else abort(404)
     return jsonify(review_obj.to_dict()) if review_obj else abort(404)
+
 
 @app_views.route('/places/<place_id>/reviews', methods=['POST'])
 def create_review(place_id):
@@ -50,6 +53,7 @@ def create_review(place_id):
     storage.new(new_review)
     storage.save()
     return jsonify(new_review.to_dict()), 201
+
 
 @app_views.route('/places/<review_id>', methods=['PUT'])
 def update_review(review_id):
