@@ -37,15 +37,7 @@ class FileStorage:
         """Returns num of objs in storage matching the given class name;
         return count of all objs if no name is passed
         """
-        if not cls:
-            return len(self.all())
-
-        count = 0
-        cls_dict = self.all(cls)
-        for obj in cls_dict.values():
-            if obj.__class__.__name__ == cls:
-                count = count + 1
-        return count
+        return len(self.all()) if not cls else len(self.all(cls))
 
     def new(self, obj):
         '''
