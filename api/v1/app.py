@@ -9,7 +9,7 @@ from api.v1.views import app_views, states
 
 
 app = Flask(__name__)
-app.reigster_blueprint(app_views)
+app.register_blueprint(app_views)
 
 
 @app.teardown_appcontext
