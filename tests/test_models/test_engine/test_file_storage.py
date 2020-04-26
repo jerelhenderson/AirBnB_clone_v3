@@ -22,16 +22,6 @@ class testFileStorage(unittest.TestCase):
         Testing the FileStorage class
     '''
 
-	def test_get(self):
-		"""Tests get method works properly"""
-		cali = State(name="California")
-		cali.save()
-		hopefully_cali = models.storage.get('cali', cali.id)
-		self.assertEqual(cali, hopefully_cali)
-
-		non_exist = models.storage.get('sdf', 333)
-		self.assertIsNone(non_exist)
-
     def setUp(self):
         '''
             Initializing classes
@@ -48,6 +38,16 @@ class testFileStorage(unittest.TestCase):
             os.remove("file.json")
         except FileNotFoundError:
             pass
+
+    def test_get(self):
+        """Tests get method works properly"""
+        cali = State(name="California")
+        cali.save()
+        hopefully_cali = self.storage.get('State', cali.id)
+        self.assertEqual(cali, hopefully_cali)
+
+        non_exist = self.storage.get('sdf', 'ooh')
+        self.assertIsNone(non_exist)
 
     def test_all_return_type(self):
         '''
@@ -106,7 +106,7 @@ class testFileStorage(unittest.TestCase):
 
         self.assertIsInstance(content, str)
 
-    def test_reaload_without_file(self):
+    def test_reload_without_file(self):
         '''
             Tests that nothing happens when file.json does not exists
             and reload is called
