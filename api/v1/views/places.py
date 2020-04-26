@@ -10,7 +10,8 @@ from models import storage
 obj_dict = storage.all('Place')
 
 
-@app_views.route('/cities/<city_id>/places', methods=['GET'])
+@app_views.route('/cities/<city_id>/places', methods=['GET'],
+                 strict_slashes=False)
 def all_place(city_id):
     """retrieves a list of Place objects given a place_id"""
     try:
@@ -20,7 +21,8 @@ def all_place(city_id):
         abort(404)
 
 
-@app_views.route('/places/<place_id>', methods=['GET', 'DELETE'])
+@app_views.route('/places/<place_id>', methods=['GET', 'DELETE'],
+                 strict_slashes=False)
 def get_place_obj(place_id):
     """gets Place obj based on id, else None if not found"""
     place_obj = storage.get('Place', place_id)
@@ -32,7 +34,8 @@ def get_place_obj(place_id):
     return jsonify(place_obj.to_dict()) if place_obj else abort(404)
 
 
-@app_views.route('/cities/<city_id>/places', methods=['POST'])
+@app_views.route('/cities/<city_id>/places', methods=['POST'],
+                 strict_slashes=False)
 def create_place(city_id):
     """creates a place"""
     content = request.get_json()
@@ -55,7 +58,7 @@ def create_place(city_id):
     return jsonify(new_place.to_dict()), 201
 
 
-@app_views.route('/cities/<place_id>', methods=['PUT'])
+@app_views.route('/cities/<place_id>', methods=['PUT'], strict_slashes=False)
 def update_place(place_id):
     """updates a city obj"""
     place_obj = storage.get('Place', place_id)

@@ -10,7 +10,8 @@ from models import storage
 obj_dict = storage.all('Review')
 
 
-@app_views.route('/places/<place_id>/reviews', methods=['GET'])
+@app_views.route('/places/<place_id>/reviews', methods=['GET'],
+                 strict_slashes=False)
 def all_review(place_id):
     """retrieves a list of Review objects given a review_id"""
     try:
@@ -20,7 +21,8 @@ def all_review(place_id):
         abort(404)
 
 
-@app_views.route('/reviews/<review_id>', methods=['GET', 'DELETE'])
+@app_views.route('/reviews/<review_id>', methods=['GET', 'DELETE'],
+                 strict_slashes=False)
 def get_review_obj(review_id):
     """gets Review obj based on id, else None if not found"""
     review_obj = storage.get('Review', review_id)
@@ -32,7 +34,8 @@ def get_review_obj(review_id):
     return jsonify(review_obj.to_dict()) if review_obj else abort(404)
 
 
-@app_views.route('/places/<place_id>/reviews', methods=['POST'])
+@app_views.route('/places/<place_id>/reviews', methods=['POST'],
+                 strict_slashes=False)
 def create_review(place_id):
     """creates a review"""
     content = request.get_json()
@@ -55,7 +58,7 @@ def create_review(place_id):
     return jsonify(new_review.to_dict()), 201
 
 
-@app_views.route('/places/<review_id>', methods=['PUT'])
+@app_views.route('/places/<review_id>', methods=['PUT'], strict_slashes=False)
 def update_review(review_id):
     """updates a place obj"""
     review_obj = storage.get('Review', review_id)

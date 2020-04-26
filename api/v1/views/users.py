@@ -16,7 +16,8 @@ def all_user():
     return jsonify([obj.to_dict() for obj in obj_dict.values()])
 
 
-@app_views.route('/users/<user_id>', methods=['GET', 'DELETE'])
+@app_views.route('/users/<user_id>', methods=['GET', 'DELETE'],
+                 strict_slashes=False)
 def get_user_obj(user_id):
     """gets User obj based on id, else None if not found"""
     user_obj = storage.get('User', user_id)
@@ -28,7 +29,7 @@ def get_user_obj(user_id):
     return jsonify(user_obj.to_dict()) if user_obj else abort(404)
 
 
-@app_views.route('/users/<user_id>', methods=['PUT'])
+@app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
 def update_user(user_id):
     """updates a user obj"""
     user_obj = storage.get('User', user_id)

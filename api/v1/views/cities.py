@@ -10,7 +10,8 @@ from models import storage
 obj_dict = storage.all('City')
 
 
-@app_views.route('/states/<state_id>/cities', methods=['GET'])
+@app_views.route('/states/<state_id>/cities', methods=['GET'],
+                 strict_slashes=False)
 def all_city(state_id):
     """retrieves a list of City objects given a city_id"""
     try:
@@ -20,7 +21,8 @@ def all_city(state_id):
         abort(404)
 
 
-@app_views.route('/cities/<city_id>', methods=['GET', 'DELETE'])
+@app_views.route('/cities/<city_id>', methods=['GET', 'DELETE'],
+                 strict_slashes=False)
 def get_city_obj(city_id):
     """gets City obj based on id, else None if not found"""
     city_obj = storage.get('City', city_id)
@@ -32,7 +34,8 @@ def get_city_obj(city_id):
     return jsonify(city_obj.to_dict()) if city_obj else abort(404)
 
 
-@app_views.route('/states/<state_id>/cities', methods=['POST'])
+@app_views.route('/states/<state_id>/cities', methods=['POST'],
+                 strict_slashes=False)
 def create_city(state_id):
     """creates a city"""
     content = request.get_json()
@@ -50,7 +53,7 @@ def create_city(state_id):
     return jsonify(new_city.to_dict()), 201
 
 
-@app_views.route('/cities/<city_id>', methods=['PUT'])
+@app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
 def update_city(city_id):
     """updates a state obj"""
     city_obj = storage.get('City', city_id)
