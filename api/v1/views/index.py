@@ -1,6 +1,8 @@
 #!/usr/bin/python3
-"""df"""
-
+"""
+Module: Index
+index.py - return JSON status for various objects
+"""
 from api.v1.views import app_views
 from flask import jsonify
 from models import storage
@@ -10,6 +12,7 @@ from models import storage
 def status():
 	"""shows status"""
 	return jsonify({'status': 'OK'})
+
 
 @app_views.route('/stats', methods=['GET'])
 def stats():
