@@ -18,5 +18,5 @@ def status():
 def stats():
     """ retrieves stats of objects """
     obj_dict = {'Amenity': 'amenities', 'City': 'cities', 'Place': 'places',
-                'Review': 'reviews', 'State': 'states', 'User': 'user'}
+                'Review': 'reviews', 'State': 'states', 'User': 'users'}
     return jsonify({val: storage.count(key) for key, val in obj_dict.items()})
