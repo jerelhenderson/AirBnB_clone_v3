@@ -10,9 +10,10 @@ from flask_cors import CORS
 from os import getenv
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 app.register_blueprint(app_views)
-app.url_map.strict_slashes=False
 CORS(app, resources="\*", origins='0.0.0.0')
+
 
 @app.teardown_appcontext
 def close_db(Exception):
