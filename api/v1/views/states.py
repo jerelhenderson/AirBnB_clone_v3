@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 """view for State objs that handles default RESTful API actions"""
-
 from flask import abort, jsonify, request
 from api.v1.views import app_views
-from models.state import State
+from models import State
 from models import storage
 
 
@@ -16,7 +15,8 @@ def all_state():
     return jsonify([obj.to_dict() for obj in obj_dict.values()])
 
 
-@app_views.route('/states/<state_id>', methods=['GET', 'DELETE'])
+@app_views.route('/states/<state_id>', methods=['GET', 'DELETE'],
+                 strict_slashes=False)
 def get_state_obj(state_id):
     """gets State obj based on id, else None if not found"""
     state_obj = storage.get('State', state_id)
@@ -28,7 +28,7 @@ def get_state_obj(state_id):
     return jsonify(state_obj.to_dict()) if state_obj else abort(404)
 
 
-@app_views.route('/states/<state_id>', methods=['PUT'])
+@app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def update_state(state_id):
     """updates a state obj"""
     state_obj = storage.get('State', state_id)
